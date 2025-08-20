@@ -1,8 +1,6 @@
-package com.polarbookshop.catalogservice;
+package com.polarbookshop.catalogservice.domain;
 
 import com.polarbookshop.catalogservice.config.DataConfig;
-import com.polarbookshop.catalogservice.domain.Book;
-import com.polarbookshop.catalogservice.domain.BookRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
