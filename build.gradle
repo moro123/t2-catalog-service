@@ -17,13 +17,49 @@ repositories {
 	mavenCentral()
 }
 
+bootRun {
+	systemProperty 'spring.profiles.active', 'testdata'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+ext {
+	set('springCloudVersion', "2025.0.0")
+	set('testcontainersVersion', "1.17.3")
+}
+
 dependencies {
+
+	implementation 'org.flywaydb:flyway-core'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	runtimeOnly 'org.postgresql:postgresql'
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	implementation 'org.springframework.retry:spring-retry'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	testImplementation 'org.testcontainers:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+	}
 }
 
 tasks.named('test') {
